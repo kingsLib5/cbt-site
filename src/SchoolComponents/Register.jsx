@@ -1,96 +1,154 @@
-
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import Login from "./Login"; // Import the Login component
 
 function Register() {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+
+  const openLoginModal = () => setIsLoginOpen(true);
+  const closeLoginModal = () => setIsLoginOpen(false);
+
   return (
-    <div className='h-[130vh] w-screen grid justify-center items-center bg-[#b4b3b3]'>
-      <motion.div 
-        className='bg-white h-[120vh] w-[90vw] md:w-[70vw] lg:w-[30vw] grid grid-rows-8 rounded-2xl shadow-xl'
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6 }}
+    <div className="min-h-[100vh] w-screen flex justify-center items-center bg-gray-100">
+      <motion.div
+        className="bg-white w-full max-w-md rounded-lg shadow-2xl p-8"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
         {/* Header */}
-        <div className='bg-[#e4e4e3] flex h-[60px] justify-center items-center font-mono font-semibold text-[15px] row-span-1 rounded-t-2xl'>
-          Create an account
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold text-gray-800">Create an Account</h1>
+          <p className="text-sm text-gray-500">
+            Sign up to get started with our platform
+          </p>
         </div>
 
-        <div className='row-span-6 mt-5 flex justify-start items-center p-4'>
-          {/* Form */}
-          <form className='grid grid-rows-7 gap-4 w-full'>
-            <div className='grid font-semibold'>
-              <label className='text-[14px] mb-1'>Firstname</label>
-              <input 
-                type="text" 
-                className='bg-gray-300 w-[90%] md:w-[80%] lg:w-[300px] h-[6vh] rounded-md p-2 shadow-md' 
-                placeholder='Your first name' 
-              />
-            </div>
-            <div className='grid font-semibold'>
-              <label className='text-[14px] mb-1'>Lastname</label>
-              <input 
-                type="text" 
-                className='bg-gray-300 w-[90%] md:w-[80%] lg:w-[300px] h-[6vh] rounded-md p-2 shadow-md' 
-                placeholder='Your last name' 
-              />
-            </div>
-            <div className='grid font-semibold'>
-              <label className='text-[14px] mb-1'>Email</label>
-              <input 
-                type="email" 
-                className='bg-gray-300 w-[90%] md:w-[80%] lg:w-[300px] h-[6vh] rounded-md p-2 shadow-md' 
-                placeholder='Your email address' 
-              />
-            </div>
-            <div className='grid font-semibold'>
-              <label className='text-[14px] mb-1'>Phone No:</label>
-              <input 
-                type="text" 
-                className='bg-gray-300 w-[90%] md:w-[80%] lg:w-[300px] h-[6vh] rounded-md p-2 shadow-md' 
-                placeholder='Your phone number' 
-              />
-            </div>
-            <div className='grid font-semibold'>
-              <label className='text-[14px] mb-1'>State</label>
-              <input 
-                type="text" 
-                className='bg-gray-300 w-[90%] md:w-[80%] lg:w-[300px] h-[6vh] rounded-md p-2 shadow-md' 
-                placeholder='Your state' 
-              />
-            </div>
-            <div className='grid font-semibold'>
-              <label className='text-[14px] mb-1'>Password</label>
-              <input 
-                type="password" 
-                className='bg-gray-300 w-[90%] md:w-[80%] lg:w-[300px] h-[6vh] rounded-md p-2 shadow-md' 
-                placeholder='Set your password' 
-              />
-            </div>
-            <div className='grid font-semibold'>
-              <label className='text-[14px] mb-1'>Confirm Password</label>
-              <input 
-                type="password" 
-                className='bg-gray-300 w-[90%] md:w-[80%] lg:w-[300px] h-[6vh] rounded-md p-2 shadow-md' 
-                placeholder='Re-type password' 
+        {/* Form */}
+        <form className="space-y-5">
+          {/* First and Last Name Fields */}
+          <div className="flex gap-4">
+            <div className="w-1/2">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                First Name
+              </label>
+              <input
+                type="text"
+                placeholder="Your first name"
+                className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
               />
             </div>
 
-            {/* Button */}
-            <div className='grid justify-center mt-5 items-center row-span-1'>
-              <motion.button 
-                className='bg-orange-500 text-white font-semibold h-[6vh] w-[120px] md:w-[50%] lg:w-[120px] rounded-[20px] shadow-lg'
-                whileHover={{ scale: 1.10 }} // Subtle hover effect
-                whileTap={{ scale: 0.95 }}
-              >
-                Register
-              </motion.button>
+            <div className="w-1/2">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Last Name
+              </label>
+              <input
+                type="text"
+                placeholder="Your last name"
+                className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
+              />
             </div>
-          </form>
+          </div>
+
+          {/* Other Form Fields */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Username
+            </label>
+            <input
+              type="text"
+              placeholder="Choose a username"
+              className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
+            <input
+              type="email"
+              placeholder="Your email address"
+              className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              placeholder="Your phone number"
+              className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              State
+            </label>
+            <input
+              type="text"
+              placeholder="Your state"
+              className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
+            <input
+              type="password"
+              placeholder="Set your password"
+              className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              placeholder="Re-type password"
+              className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
+            />
+          </div>
+
+          {/* Register Button */}
+          <div className="text-center">
+            <motion.button
+              type="submit"
+              className="w-full py-3 bg-orange-500 text-white font-bold rounded-lg shadow-md hover:bg-orange-600 focus:outline-none focus:ring focus:ring-orange-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Register
+            </motion.button>
+          </div>
+        </form>
+
+        {/* Footer */}
+        <div className="text-center mt-6">
+          <p className="text-sm text-gray-500">
+            Already have an account?{" "}
+            <button
+              onClick={openLoginModal}
+              className="text-orange-500 hover:underline font-medium"
+            >
+              Log in
+            </button>
+          </p>
         </div>
       </motion.div>
+
+      {/* Login Modal */}
+      {isLoginOpen && <Login onClose={closeLoginModal} />}
     </div>
-  )
+  );
 }
 
-export default Register
+export default Register;
