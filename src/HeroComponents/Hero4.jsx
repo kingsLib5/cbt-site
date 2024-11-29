@@ -40,7 +40,7 @@ const Hero4 = () => {
           <div key={index} className="bg-gray-700 rounded-lg overflow-hidden shadow-md">
             <button
               onClick={() => toggleAnswer(index)}
-              className="flex justify-between items-center w-full py-4 px-5 text-left font-medium text-lg bg-gray-700 hover:bg-gray-600 focus:outline-none"
+              className="flex justify-between items-center w-full py-4 px-5 text-left font-medium text-lg bg-[orangered] hover:bg-gray-600 focus:outline-none"
             >
               <span>{faq.question}</span>
               <span
@@ -60,7 +60,7 @@ const Hero4 = () => {
                   transition={{ duration: 0.3 }}
                   className="px-5 py-4 bg-gray-800"
                 >
-                  <p className="text-gray-300">{faq.answer}</p>
+                  <p className="text-[white]">{faq.answer}</p>
                 </motion.div>
               )}
             </AnimatePresence>

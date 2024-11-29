@@ -43,7 +43,7 @@ function Header() {
 
   return (
     <>
-      <div className='bg-gradient-to-r from-[#080836] to-[#282850] w-full h-[10vh] flex justify-between items-center px-4 shadow-lg'>
+      <div className='bg-gradient-to-r from-[#080836] to-[#272774] w-full h-[10vh] flex justify-between items-center px-4 shadow-lg'>
         {/* Logo Section */}
         <div className='flex ml-[40px] items-center text-white text-[25px] font-bold'>  
           <FaEdgeLegacy className='text-[orangered] text-[25px] animate-pulse' /><p>-lesson</p> 

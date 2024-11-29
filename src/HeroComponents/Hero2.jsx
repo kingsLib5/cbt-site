@@ -3,56 +3,53 @@ import { motion } from 'framer-motion';
 
 function Hero2() {
   return (
-    <div className='w-full min-h-[80vh] bg-[#080836] flex flex-col gap-y-6'>
-      <div className='h-[25%] flex justify-center items-center'>
-        <h1 className='text-[white] text-[30px] sm:text-[40px] font-semibold text-center'>
+    <div className="w-full min-h-[80vh] bg-[#080836] flex flex-col items-center py-8">
+      {/* Header Section */}
+      <div className="h-[20%] flex justify-center items-center">
+        <h1 className="text-white text-3xl sm:text-4xl font-semibold text-center">
           Get Started. Get Results.
         </h1>
       </div>
 
-      {/* section-two */}
-      <div className='flex flex-col sm:flex-row h-[85%] gap-y-6 sm:gap-y-0'>
-        
+      {/* Content Section */}
+      <div className="flex flex-col sm:flex-row h-[80%] w-full gap-8 sm:gap-0 items-center sm:items-start px-6 sm:px-12">
         {/* Left Section */}
-        <motion.div 
-          className='w-full sm:w-[50%] flex items-center flex-col gap-2 justify-center'
-          initial={{ scale: 0.5, opacity: 0 }}
+        <motion.div
+          className="w-full sm:w-1/2 flex flex-col items-center gap-4 text-center"
+          initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 5, ease: 'easeOut', delay: 2 }}
+          transition={{ duration: 5, ease: 'easeOut', delay: 3 }}
         >
-          <div className='bg-[url(./assets/exams.png)] bg-cover bg-center h-[150px] sm:h-[250px] w-[70%] sm:w-[50%] max-w-[300px]'></div>
-          <div className='flex'>
-            <h1 className='text-[orangered] font-bold text-[15px] sm:text-[20px] text-center'>
-              Prepare You for Exam
-            </h1>
-          </div>
-          <div className='flex text-center px-2'>
-            <h3 className='text-[white] text-[13px] font-serif text-sm sm:text-base'>
-              We are to build solid trust in our clients
-            </h3>
-          </div>
+          <div
+            className="bg-[url(./assets/exams.png)] bg-cover bg-center rounded-lg shadow-lg h-[150px] sm:h-[250px] w-[80%] max-w-[300px]"
+            aria-label="Exam preparation visual"
+          ></div>
+          <h1 className="text-[orangered] font-bold text-lg sm:text-xl">
+            Prepare for Exams
+          </h1>
+          <p className="text-white text-sm sm:text-base font-light">
+            Building solid trust with our clients.
+          </p>
         </motion.div>
 
         {/* Right Section */}
-        <motion.div 
-          className='w-full sm:w-[50%] flex items-center flex-col gap-4 justify-center'
-          initial={{ scale: 0.5, opacity: 0 }}
+        <motion.div
+          className="w-full sm:w-1/2 flex flex-col items-center gap-4 text-center"
+          initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 5, ease: 'easeOut', delay: 2 }}
+          transition={{ duration: 5, ease: 'easeOut', delay: 3 }}
         >
-          <div className='bg-[url(./assets/get.png)] bg-cover bg-center bb h-[150px] sm:h-[250px] w-[70%] sm:w-[50%] max-w-[300px]'></div>
-          <div className='flex'>
-            <h1 className='text-[orangered] font-bold text-[15px] sm:text-[20px] text-center'>
-              Boost Your Intelligence
-            </h1>
-          </div>
-          <div className='flex text-center px-2'>
-            <h3 className='text-[white] text-[13px] font-serif text-sm sm:text-base'>
-              We are to build solid trust in our clients
-            </h3>
-          </div>
+          <div
+            className="bg-[url(./assets/get.png)] bg-cover bb bg-center rounded-lg shadow-lg h-[150px] sm:h-[250px] w-[80%] max-w-[300px]"
+            aria-label="Intelligence boost visual"
+          ></div>
+          <h1 className="text-[orangered] font-bold text-lg sm:text-xl">
+            Boost Your Intelligence
+          </h1>
+          <p className="text-white text-sm sm:text-base font-light">
+            Empowering you to achieve your best.
+          </p>
         </motion.div>
-
       </div>
     </div>
   );
