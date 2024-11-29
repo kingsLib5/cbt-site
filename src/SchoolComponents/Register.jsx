@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 function Register() {
   return (
-    <div className='h-[130vh] w-screen grid justify-center items-center bg-[#dfdddd]'>
+    <div className='h-[130vh] w-screen grid justify-center items-center bg-[#b4b3b3]'>
       <motion.div 
         className='bg-white h-[120vh] w-[90vw] md:w-[70vw] lg:w-[30vw] grid grid-rows-8 rounded-2xl shadow-xl'
         initial={{ opacity: 0, scale: 0.8 }}

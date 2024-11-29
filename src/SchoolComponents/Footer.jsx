@@ -12,10 +12,10 @@ function Footer() {
   const handleCloseLogin = () => setShowLogin(false);
 
   return (
-    <div className='bg-[#3f3f74] text-white py-8 px-4 md:px-8 lg:px-16'>
+    <div className='bg-[#080836] text-white py-8 px-4 md:px-8 lg:px-16'>
       <div className='w-full max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 border-t border-white pt-8'>
 
-       
+        {/* Our Services Section */}
         <motion.div 
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
