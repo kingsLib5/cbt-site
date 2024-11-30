@@ -9,7 +9,7 @@ function Register() {
   const closeLoginModal = () => setIsLoginOpen(false);
 
   return (
-    <div className="min-h-[100vh] w-screen flex justify-center items-center bg-gray-100">
+    <div className="min-h-[100vh] w-screen flex justify-center items-center bg-[#b4b3b3]">
       <motion.div
         className="bg-white w-full max-w-md rounded-lg shadow-2xl p-8"
         initial={{ opacity: 0, y: 50 }}

@@ -30,9 +30,8 @@ function Footer() {
             <li>
               <span onClick={handleLoginClick} className="cursor-pointer hover:text-yellow-400">Login</span>
             </li>
-            <li><a href="/CBT Exam" className="hover:text-yellow-400">CBT Questions</a></li>
+            <li><a href="/CBT Exam" className="hover:text-yellow-400">CBT</a></li>
             <li><a href="/Past Questions" className="hover:text-yellow-400">Past Questions</a></li>
-            <li><a href="/Blog" className="hover:text-yellow-400">Blog</a></li>
           </ul>
         </motion.div>
 
@@ -59,13 +58,13 @@ function Footer() {
               <a href="https://github.com/Xomcreate" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400">
                 <FaGithub className='text-[15px]' />
               </a>
-              Kings & Prisca
+              DEX & XOM
             </li>
             <li className='flex gap-[10px] items-center'>
               <a href="https://www.linkedin.com/in/david-igboanusi-757a66270/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">
                 <FaLinkedin className='text-[15px]' />
               </a>
-              Kings & Prisca
+              DEX & XOM
             </li>
           </ul>
         </motion.div>
