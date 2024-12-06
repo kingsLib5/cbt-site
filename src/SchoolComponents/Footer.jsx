@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import { FaLaptop } from "react-icons/fa6";
-import { IoMdContact } from "react-icons/io";
-import { FaPhoneAlt, FaWhatsapp, FaGithub, FaLinkedin, FaInfo } from "react-icons/fa";
+import {
+  FaLaptop,
+  FaPhoneAlt,
+  FaWhatsapp,
+  FaGithub,
+  FaLinkedin,
+  FaInfo,
+} from 'react-icons/fa';
+import { IoMdContact } from 'react-icons/io';
 import { motion } from 'framer-motion';
 import Login from './Login';
 
@@ -12,85 +18,145 @@ function Footer() {
   const handleCloseLogin = () => setShowLogin(false);
 
   return (
-    <div className='bg-[#080836] text-white py-8 px-4 md:px-8 lg:px-16'>
-      <div className='w-full max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 border-t border-white pt-8'>
-
+    <footer className="bg-[#080836] text-white py-12 px-6 md:px-12 lg:px-24">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24 border-t border-gray-700 pt-12">
+        
         {/* Our Services Section */}
-        <motion.div 
+        <motion.section
           initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.5 }}
-          className='flex flex-col items-center md:items-start'
+          className="flex flex-col items-center md:items-start"
+          aria-labelledby="services-heading"
         >
-          <h1 className='flex items-center font-bold text-[20px] gap-[10px]'>
-            <FaInfo className='text-[orangered] text-[25px]' />Our Services
-          </h1>
-          <ul className='list-disc ml-10 mt-4 space-y-2 text-center md:text-left'>
-            <li><a href="/Contact" className="hover:text-yellow-400">Contacts</a></li>
-            <li>
-              <span onClick={handleLoginClick} className="cursor-pointer hover:text-yellow-400">Login</span>
-            </li>
-            <li><a href="/CBT Exam" className="hover:text-yellow-400">CBT</a></li>
-            <li><a href="/Past Questions" className="hover:text-yellow-400">Past Questions</a></li>
-          </ul>
-        </motion.div>
+          <h2
+            id="services-heading"
+            className="flex items-center font-semibold text-xl gap-3 mb-4"
+          >
+            <FaInfo className="text-[orangered] text-2xl" aria-hidden="true" />
+            Our Services
+          </h2>
+          <nav aria-label="Footer Services">
+            <ul className="space-y-3 text-center md:text-left">
+              <li>
+                <a
+                  href="/Contact"
+                  className="hover:text-yellow-400 transition-colors duration-200"
+                >
+                  Contacts
+                </a>
+              </li>
+              <li>
+                <button
+                  onClick={handleLoginClick}
+                  className="hover:text-yellow-400 transition-colors duration-200 focus:outline-none"
+                >
+                  Login
+                </button>
+              </li>
+              <li>
+                <a
+                  href="/CBT Exam"
+                  className="hover:text-yellow-400 transition-colors duration-200"
+                >
+                  CBT
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/Past Questions"
+                  className="hover:text-yellow-400 transition-colors duration-200"
+                >
+                  Past Questions
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </motion.section>
 
         {/* Contacts Section */}
-        <motion.div 
+        <motion.section
           initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className='flex flex-col items-center md:items-start'
+          className="flex flex-col items-center md:items-start"
+          aria-labelledby="contacts-heading"
         >
-          <h1 className='flex items-center font-bold text-[20px] gap-[10px]'>
-            <IoMdContact className='text-[orangered] text-[25px]' />Contacts
-          </h1>
-          <ul className='mt-4 space-y-3'>
-            <li className='flex gap-[10px] items-center'>
-              <FaPhoneAlt className='text-[white] text-[15px]' />
-              <span>09018115555, 09076084515</span>
-            </li>
-            <li className='flex gap-[10px] items-center'>
-              <FaWhatsapp className='text-[green] text-[15px]' />
-              <span>09076084515</span>
-            </li>
-            <li className='flex gap-[10px] items-center'>
-              <a href="https://github.com/Xomcreate" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400">
-                <FaGithub className='text-[15px]' />
+          <h2
+            id="contacts-heading"
+            className="flex items-center font-semibold text-xl gap-3 mb-4"
+          >
+            <IoMdContact className="text-[orangered] text-2xl" aria-hidden="true" />
+            Contacts
+          </h2>
+          <ul className="space-y-4">
+            <li className="flex items-center space-x-3">
+              <FaPhoneAlt className="text-white text-lg" aria-hidden="true" />
+              <a href="tel:09018115555" className="hover:text-yellow-400 transition-colors duration-200">
+                09018115555
               </a>
-              DEX & XOM
-            </li>
-            <li className='flex gap-[10px] items-center'>
-              <a href="https://www.linkedin.com/in/david-igboanusi-757a66270/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">
-                <FaLinkedin className='text-[15px]' />
+              <a href="tel:09076084515" className="hover:text-yellow-400 transition-colors duration-200">
+                09076084515
               </a>
-              DEX & XOM
+            </li>
+            <li className="flex items-center space-x-3">
+              <FaWhatsapp className="text-green-500 text-lg" aria-hidden="true" />
+              <a href="https://wa.me/09076084515" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400 transition-colors duration-200">
+                09076084515
+              </a>
+            </li>
+            <li className="flex items-center space-x-3">
+              <FaGithub className="text-white text-lg" aria-hidden="true" />
+              <a
+                href="https://github.com/Xomcreate"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gray-400 transition-colors duration-200"
+              >
+                DEX &amp; XOM
+              </a>
+            </li>
+            <li className="flex items-center space-x-3">
+              <FaLinkedin className="text-blue-600 text-lg" aria-hidden="true" />
+              <a
+                href="https://www.linkedin.com/in/david-igboanusi-757a66270/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-500 transition-colors duration-200"
+              >
+                DEX &amp; XOM
+              </a>
             </li>
           </ul>
-        </motion.div>
+        </motion.section>
 
         {/* About Us Section */}
-        <motion.div 
+        <motion.section
           initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className='flex flex-col items-center md:items-start'
+          className="flex flex-col items-center md:items-start"
+          aria-labelledby="about-heading"
         >
-          <h1 className='flex items-center font-bold text-[20px] gap-[10px]'>
-            <FaLaptop className='text-[orangered] text-[25px]' />About Us
-          </h1>
-          <p className='mt-4 text-center md:text-left leading-relaxed'>
-            e-lesson is an educational platform that helps students prepare for their exams and boosts their confidence with challenging questions.
+          <h2
+            id="about-heading"
+            className="flex items-center font-semibold text-xl gap-3 mb-4"
+          >
+            <FaLaptop className="text-[orangered] text-2xl" aria-hidden="true" />
+            About Us
+          </h2>
+          <p className="text-center md:text-left leading-relaxed mb-6">
+            e-Lesson is an educational platform that helps students prepare for their exams and boosts their confidence with challenging questions.
           </p>
-          <p className='text-center md:text-left mt-[75px] text-[13px]'>
-            © 2024 All rights reserved | Developed by Kings & Prisca
+          <p className="text-center md:text-left text-sm text-gray-400">
+            © 2024 All rights reserved | Developed by Kings &amp; Prisca
           </p>
-        </motion.div>
+        </motion.section>
       </div>
 
       {/* Login Modal */}
       {showLogin && <Login onClose={handleCloseLogin} />}
-    </div>
+    </footer>
   );
 }
 

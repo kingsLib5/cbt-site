@@ -9,33 +9,15 @@ import Login from './Login';
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Tracks if user is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Framer Motion animation for the mobile menu
   const menuVariants = {
-    open: { 
-      opacity: 1, 
-      height: "auto", 
-      transition: { 
-        type: "spring", 
-        stiffness: 80, 
-        damping: 15 
-      } 
-    },
-    closed: { 
-      opacity: 0, 
-      height: 0, 
-      transition: { 
-        type: "spring", 
-        stiffness: 80, 
-        damping: 15 
-      } 
-    },
+    open: { opacity: 1, height: "auto", transition: { type: "spring", stiffness: 80, damping: 15 } },
+    closed: { opacity: 0, height: 0, transition: { type: "spring", stiffness: 80, damping: 15 } },
   };
 
-  // Stagger effect for menu items
   const itemVariants = {
     hidden: { opacity: 0, x: -20 },
     visible: { opacity: 1, x: 0 },
@@ -76,21 +58,28 @@ function Header() {
         <div className='hidden md:flex gap-4'>
           <button 
             onClick={() => navigate('/register')} 
-            className='bg-gradient-to-r from-[orangered] to-[#ff7300] text-white text-[15px] h-[4vh] w-[8vw] rounded-lg hover:bg-yellow-400 transition-all duration-300'>
+            className='bg-gradient-to-r from-[orangered] to-[#ff7300] text-white text-[15px] h-[4vh] w-[8vw] rounded-lg transition-all duration-300 
+                      hover:shadow-lg hover:scale-105'
+          >
             Register
           </button>
           <button 
             onClick={() => setShowLogin(true)} 
-            className='bg-gradient-to-r from-[orangered] to-[#ff7300] text-white text-[15px] h-[4vh] w-[8vw] rounded-lg hover:bg-yellow-400 transition-all duration-300'>
+            className='bg-gradient-to-r from-[orangered] to-[#ff7300] text-white text-[15px] h-[4vh] w-[8vw] rounded-lg transition-all duration-300 
+                      hover:shadow-lg hover:scale-105'
+          >
             Login
           </button>
           {isLoggedIn && (
             <button 
-              className='bg-gradient-to-r from-[orangered] to-[#ff7300] justify-center grid items-center text-white text-[15px] h-[4vh] w-[2vw] rounded-full hover:bg-yellow-400 transition-all duration-300'>
+              className='bg-gradient-to-r from-[orangered] to-[#ff7300] justify-center grid items-center text-white text-[15px] h-[4vh] w-[2vw] rounded-full transition-all duration-300 
+                        hover:shadow-lg hover:scale-105'
+            >
               <BsFillPersonFill className=' text-[20px]' />   
             </button>
           )}
         </div>
+
 
         {/* Hamburger Menu for mobile */}
         <div className='md:hidden text-white'>
@@ -98,6 +87,7 @@ function Header() {
             onClick={() => setIsOpen(!isOpen)} 
             whileTap={{ scale: 0.9 }}
             className='focus:outline-none'
+            aria-label="Toggle Menu"
           >
             {isOpen ? <FaTimes size={25} /> : <FaBars size={25} />}
           </motion.button>
@@ -128,19 +118,23 @@ function Header() {
                 </Link>
               </motion.li>
             ))}
-          <motion.li 
-            className='w-full flex justify-center'
-            variants={itemVariants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.6 }}
+         <motion.li 
+          className='w-full flex justify-center'
+          variants={itemVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.6 }}
+        >
+          <button 
+            onClick={() => {
+              navigate('/register'); // Navigate to the register page
+              setIsOpen(false); // Close the menu
+            }}
+            className='bg-gradient-to-r from-[orangered] to-[#ff7300] text-white text-[15px] h-[4vh] w-[60vw] rounded-lg hover:bg-yellow-400 transition-all duration-300'
           >
-            <button 
-              onClick={() => navigate('/register')} 
-              className='bg-gradient-to-r from-[orangered] to-[#ff7300] text-white text-[15px] h-[4vh] w-[60vw] rounded-lg hover:bg-yellow-400 transition-all duration-300'>
-              Register
-            </button>
-          </motion.li>
+            Register
+          </button>
+        </motion.li>
           <motion.li 
             className='w-full flex justify-center'
             variants={itemVariants}

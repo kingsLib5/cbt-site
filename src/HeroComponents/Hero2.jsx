@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 function Hero2() {
   return (
-    <div className="w-full min-h-[80vh] bg-[#080836] flex flex-col items-center py-8">
+    <div className="w-full min-h-[100vh]  bg-[#080836] flex flex-col items-center py-8">
       {/* Header Section */}
       <div className="h-[20%] flex justify-center items-center">
         <h1 className="text-white text-3xl sm:text-4xl font-semibold text-center">
