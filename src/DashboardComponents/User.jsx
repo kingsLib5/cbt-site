@@ -3,7 +3,7 @@ import { MdDashboard } from "react-icons/md";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import Details from '../DashboardmenuComponets/Details';
-import Profile from '../DashboardmenuComponets/Profile';
+import Profile from '../DashboardmenuComponets/editprofile';
 import Log from '../DashboardmenuComponets/Log';
 import Welcome from '../DashboardmenuComponets/Welcome';
 
@@ -18,12 +18,12 @@ function User() {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-12 bg-gray-100">
+    <div className="min-h-[100vh] grid grid-cols-1 md:grid-cols-12 bg-gray-100">
       {/* Sidebar */}
       <aside
         className={`${
           isSidebarOpen ? 'block' : 'hidden'
-        } md:block col-span-3 lg:col-span-2 bg-gray-200 flex flex-col items-center md:items-start p-4 space-y-6 shadow-lg md:relative absolute w-full md:w-auto z-10`}
+        } md:block col-span-3 lg:col-span-2 bg-gray-300 flex flex-col items-center md:items-start p-4 space-y-6 shadow-lg md:relative absolute w-full md:w-auto z-10`}
       >
         {/* Close Button for Small Screens */}
         <div className="flex w-full justify-end md:hidden">
@@ -65,7 +65,7 @@ function User() {
             }`}
             onClick={() => setActiveSection('profile')}
           >
-            Edit Details
+            Edit Profile
           </button>
         </nav>
 
@@ -88,7 +88,7 @@ function User() {
       </div>
 
       {/* Main Content */}
-      <main className="col-span-9 lg:col-span-10 p-6 bg-[white] shadow-inner">
+      <main className="col-span-9 lg:col-span-10 p-6 bg-gray-200 shadow-inner">
         {/* Render Section Based on Active Tab */}
         {activeSection === 'details' && <Details />}
         {activeSection === 'login' && <Log />}
