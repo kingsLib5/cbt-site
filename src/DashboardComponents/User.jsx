@@ -4,7 +4,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import Details from '../DashboardmenuComponets/Details';
 import Profile from '../DashboardmenuComponets/editprofile';
-import Log from '../DashboardmenuComponets/Log';
+import Cbt from '../DashboardmenuComponets/Cbt'
 import Welcome from '../DashboardmenuComponets/Welcome';
 
 function User() {
@@ -91,7 +91,7 @@ function User() {
       <main className="col-span-9 lg:col-span-10 p-6 bg-gray-200 shadow-inner">
         {/* Render Section Based on Active Tab */}
         {activeSection === 'details' && <Details />}
-        {activeSection === 'login' && <Log />}
+        {activeSection === 'login' && <Cbt />}
         {activeSection === 'profile' && <Profile />}
         {activeSection === '' && <Welcome />}
       </main>

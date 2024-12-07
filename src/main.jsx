@@ -16,6 +16,7 @@ import User from './DashboardComponents/User';
 
 
 
+
  // Import Register
 
 createRoot(document.getElementById('root')).render(
@@ -31,6 +32,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/Register' element={<Register />} /> {/* Register route */}
         <Route path='/codecraft' element={<Admin />} />
         <Route path='/user' element={<User />} /> {/* Register route */}
+        
         
         
 
