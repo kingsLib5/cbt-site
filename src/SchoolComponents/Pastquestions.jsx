@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-function Pastquestions() {
+function PastQuestions() {
   const [subjects, setSubjects] = useState([]);
   const [years, setYears] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState("");
@@ -24,7 +25,7 @@ function Pastquestions() {
       "Agriculture",
       "Literature",
     ]);
-    setYears([ "2024","2023", "2022", "2021", "2020", "2019"]);
+    setYears(["2024", "2023", "2022", "2021", "2020", "2019"]);
   }, []);
 
   const fetchQuestions = async () => {
@@ -36,24 +37,21 @@ function Pastquestions() {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        `/api/past-questions?subject=${selectedSubject}&year=${selectedYear}`
+      const response = await axios.get(
+        `http://localhost:3000/api/past-questions?subject=${selectedSubject}&year=${selectedYear}`
       );
-      const data = await response.json();
-      setQuestions(data.questions || []);
+      setQuestions(response.data.questions || []);
     } catch (error) {
       console.error("Error fetching questions:", error);
-      setQuestions([]);
+      alert("Failed to fetch questions. Please try again later.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 ">
-      <h1 className="text-3xl font-bold text-center mb-8">
-        Past Questions
-      </h1>
+    <div className="max-w-6xl mx-auto p-6">
+      <h1 className="text-3xl font-bold text-center mb-8">Past Questions</h1>
 
       {/* Subject Selection */}
       <div className="mb-6">
@@ -130,4 +128,4 @@ function Pastquestions() {
   );
 }
 
-export default Pastquestions;
+export default PastQuestions;

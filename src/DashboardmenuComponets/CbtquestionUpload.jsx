@@ -6,6 +6,27 @@ const CbtquestionUpload = () => {
       <h2 className="text-2xl font-bold text-orange-500 mb-4">Upload CBT Questions</h2>
       <form className="space-y-4">
         <div>
+          <label className="block text-gray-600">Subject</label>
+          <select className="w-full p-2 border rounded-md">
+            {[
+              'Mathematics',
+              'English',
+              'Biology',
+              'Chemistry',
+              'Physics',
+              'Geography',
+              'Economics',
+              'History',
+              'Government',
+              'Computer Science',
+              'Literature',
+              'Agricultural Science',
+            ].map((subject, index) => (
+              <option key={index} value={subject}>{subject}</option>
+            ))}
+          </select>
+        </div>
+        <div>
           <label className="block text-gray-600">Question Text</label>
           <textarea className="w-full p-2 border rounded-md" placeholder="Enter the question"></textarea>
         </div>
