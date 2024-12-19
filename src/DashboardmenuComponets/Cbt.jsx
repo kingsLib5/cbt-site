@@ -60,7 +60,7 @@ function Cbt() {
   return (
     <div className="min-h-screen bg-gray-100 py-10 px-6">
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-orange-600">CBT Dashboard</h1>
+        <h1 className="text-4xl font-bold text-[orangered]">CBT Dashboard</h1>
         <p className="text-gray-600 mt-2">Overview of your test results, progress, and upcoming tests</p>
       </div>
 
@@ -75,7 +75,7 @@ function Cbt() {
             {testResults.map((result, index) => (
               <div
                 key={index}
-                className="flex justify-between items-center bg-orange-50 p-3 rounded-lg shadow-sm mb-2"
+                className="flex justify-between items-center bg-orange-200 p-3 rounded-lg shadow-sm mb-2"
               >
                 <span className="font-medium text-gray-700">{result.label}:</span>
                 <span className="text-gray-900">{result.value}</span>
