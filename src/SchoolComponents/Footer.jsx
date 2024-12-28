@@ -95,9 +95,9 @@ function Footer() {
               <a href="tel:09018115555" className="hover:text-yellow-400 transition-colors duration-200">
                 09018115555
               </a>
-              <a href="tel:09076084515" className="hover:text-yellow-400 transition-colors duration-200">
+              {/* <a href="tel:09076084515" className="hover:text-yellow-400 transition-colors duration-200">
                 09076084515
-              </a>
+              </a> */}
             </li>
             <li className="flex items-center space-x-3">
               <FaWhatsapp className="text-green-500 text-lg" aria-hidden="true" />

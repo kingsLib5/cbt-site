@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { MdDashboard } from "react-icons/md";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
-import WelcomeAdmin from '../DashboardmenuComponets/WelcomeAdmin'
-import AdminView from '../DashboardmenuComponets/AdminView'
-import PastquestionsUpload from '../DashboardmenuComponets/PastquestionUpload'
-import CbtquestionUpload from '../DashboardmenuComponets/CbtquestionUpload'
-
+import WelcomeAdmin from '../DashboardmenuComponets/WelcomeAdmin';
+import AdminView from '../DashboardmenuComponets/AdminView';
+import PastquestionsUpload from '../DashboardmenuComponets/PastquestionUpload';
+import CbtquestionUpload from '../DashboardmenuComponets/CbtquestionUpload';
 
 function Admin() {
   const [activeSection, setActiveSection] = useState(''); // Default: no section is active
@@ -16,6 +15,11 @@ function Admin() {
   const handleLogout = () => {
     console.log('User logged out'); // You can also clear session storage or cookies here
     navigate('/'); // Redirect to the Logout component
+  };
+
+  const handleSectionClick = (section) => {
+    setActiveSection(section);
+    setIsSidebarOpen(false); // Close the hamburger menu
   };
 
   return (
@@ -37,9 +41,9 @@ function Admin() {
         </div>
 
         {/* Dashboard Header */}
-        <div className="flex  items-center space-x-2 text-xl font-bold text-gray-800 hover:text-orange-500 transition">
+        <div className="flex items-center space-x-2 text-xl font-bold text-gray-800 hover:text-orange-500 transition">
           <MdDashboard className="text-2xl text-orange-500" />
-          <span >Ad Dashboard</span>
+          <span>Ad Dashboard</span>
         </div>
 
         {/* Sidebar Options */}
@@ -48,7 +52,7 @@ function Admin() {
             className={`w-full text-left px-4 py-2 rounded-md font-semibold ${
               activeSection === 'AdminView' ? 'bg-orange-500 text-white' : 'hover:bg-orange-100'
             }`}
-            onClick={() => setActiveSection('AdminView')}
+            onClick={() => handleSectionClick('AdminView')}
           >
             Admin View
           </button>
@@ -56,7 +60,7 @@ function Admin() {
             className={`w-full text-left px-4 py-2 rounded-md font-semibold ${
               activeSection === 'PQ' ? 'bg-orange-500 text-white' : 'hover:bg-orange-100'
             }`}
-            onClick={() => setActiveSection('PQ')}
+            onClick={() => handleSectionClick('PQ')}
           >
             PQ Upload
           </button>
@@ -64,7 +68,7 @@ function Admin() {
             className={`w-full text-left px-4 py-2 rounded-md font-semibold ${
               activeSection === 'Cbt-Q' ? 'bg-orange-500 text-white' : 'hover:bg-orange-100'
             }`}
-            onClick={() => setActiveSection('Cbt-Q')}
+            onClick={() => handleSectionClick('Cbt-Q')}
           >
             Cbt-Q upload
           </button>
@@ -100,4 +104,4 @@ function Admin() {
   );
 }
 
-export default Admin
+export default Admin;

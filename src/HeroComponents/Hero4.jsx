@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Hero4 = () => {
+const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const questions = [
@@ -33,34 +33,36 @@ const Hero4 = () => {
   };
 
   return (
-    <div id="Hero4" className="bg-gray-800 py-10 px-6 text-white">
-      <h2 className="text-4xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+    <div id="FAQ" className="bg-gradient-to-r from-[orangered] via-indigo-800 to-blue-800 py-12 px-6 text-white">
+      <h2 className="text-4xl font-extrabold text-center mb-10 text-white">Frequently Asked Questions</h2>
       <div className="max-w-3xl mx-auto space-y-6">
         {questions.map((faq, index) => (
-          <div key={index} className="bg-gray-700 rounded-lg overflow-hidden shadow-md">
+          <div key={index} className="rounded-lg overflow-hidden shadow-lg">
             <button
               onClick={() => toggleAnswer(index)}
-              className="flex justify-between items-center w-full py-4 px-5 text-left font-medium text-lg bg-[orangered] hover:bg-gray-600 focus:outline-none"
+              className={`flex justify-between items-center w-full py-4 px-6 text-left text-lg font-medium bg-indigo-700 hover:bg-indigo-600 rounded-lg focus:outline-none ${
+                activeIndex === index ? 'shadow-md' : ''
+              }`}
             >
-              <span>{faq.question}</span>
-              <span
-                className={`transform transition-transform duration-300 ${
-                  activeIndex === index ? 'rotate-180' : 'rotate-0'
-                }`}
+              <span className="text-white">{faq.question}</span>
+              <motion.span
+                className="text-white"
+                animate={{ rotate: activeIndex === index ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
               >
                 ▼
-              </span>
+              </motion.span>
             </button>
-            <AnimatePresence initial={false}>
+            <AnimatePresence>
               {activeIndex === index && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="px-5 py-4 bg-gray-800"
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  className="px-6 py-4 bg-indigo-600 text-white"
                 >
-                  <p className="text-[white]">{faq.answer}</p>
+                  <p>{faq.answer}</p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -71,4 +73,4 @@ const Hero4 = () => {
   );
 };
 
-export default Hero4;
+export default FAQ;
