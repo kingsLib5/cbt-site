@@ -89,7 +89,7 @@ function Contactus() {
               href="mailto:example@example.com"
               className="text-orange-500 hover:underline font-medium"
             >
-              dexom@mail.com
+              davidkingsig@gmail.com
             </a>
           </p>
         </div>

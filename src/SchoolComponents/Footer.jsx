@@ -113,7 +113,7 @@ function Footer() {
                 rel="noopener noreferrer"
                 className="hover:text-gray-400 transition-colors duration-200"
               >
-                DEX &amp; XOM
+                Kings &amp; XOM
               </a>
             </li>
             <li className="flex items-center space-x-3">
@@ -124,7 +124,7 @@ function Footer() {
                 rel="noopener noreferrer"
                 className="hover:text-blue-500 transition-colors duration-200"
               >
-                DEX &amp; XOM
+                Kings &amp; XOM
               </a>
             </li>
           </ul>
