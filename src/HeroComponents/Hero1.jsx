@@ -44,7 +44,7 @@ function Hero1() {
   const startAutoSlide = () => {
     autoSlideInterval.current = setInterval(() => {
       handleNextSlide("right");
-    }, 5000);
+    }, 10000);
   };
 
   const resetAutoSlide = () => {
