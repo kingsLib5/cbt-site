@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FaLaptop,
   FaPhoneAlt,
@@ -10,12 +10,55 @@ import {
 import { IoMdContact } from 'react-icons/io';
 import { motion } from 'framer-motion';
 import Login from './Login';
+import { useNavigate } from 'react-router-dom';
 
 function Footer() {
   const [showLogin, setShowLogin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+  const navigate = useNavigate();
+
+  // Check if the user is logged in on component mount
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true); // Set login state to true if token exists
+    }
+  }, []);
+
+  // Listen for changes in localStorage
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const token = localStorage.getItem('token');
+      setIsLoggedIn(!!token); // Update login state based on token presence
+    };
+
+    // Add event listener for storage changes
+    window.addEventListener('storage', handleStorageChange);
+
+    // Cleanup event listener
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   const handleLoginClick = () => setShowLogin(true);
   const handleCloseLogin = () => setShowLogin(false);
+
+  // Handle login success
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true); // Set login state to true
+    setShowLogin(false); // Close the login modal
+  };
+
+  // Handle restricted links
+  const handleRestrictedLinkClick = (path) => {
+    if (!isLoggedIn) {
+      alert('Please log in to access this page.'); // Show a message or redirect to login
+      setShowLogin(true); // Open the login modal
+    } else {
+      navigate(path); // Navigate to the restricted page
+    }
+  };
 
   return (
     <footer className="bg-[#080836] text-white py-12 px-6 md:px-12 lg:px-24">
@@ -55,20 +98,20 @@ function Footer() {
                 </button>
               </li>
               <li>
-                <a
-                  href="/CBT Exam"
-                  className="hover:text-yellow-400 transition-colors duration-200"
+                <button
+                  onClick={() => handleRestrictedLinkClick('/CBT Exam')}
+                  className="hover:text-yellow-400 transition-colors duration-200 focus:outline-none"
                 >
                   CBT
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  href="/Past Questions"
-                  className="hover:text-yellow-400 transition-colors duration-200"
+                <button
+                  onClick={() => handleRestrictedLinkClick('/Past Questions')}
+                  className="hover:text-yellow-400 transition-colors duration-200 focus:outline-none"
                 >
                   Past Questions
-                </a>
+                </button>
               </li>
             </ul>
           </nav>
@@ -95,9 +138,6 @@ function Footer() {
               <a href="tel:09018115555" className="hover:text-yellow-400 transition-colors duration-200">
                 09018115555
               </a>
-              {/* <a href="tel:09076084515" className="hover:text-yellow-400 transition-colors duration-200">
-                09076084515
-              </a> */}
             </li>
             <li className="flex items-center space-x-3">
               <FaWhatsapp className="text-green-500 text-lg" aria-hidden="true" />
@@ -155,7 +195,7 @@ function Footer() {
       </div>
 
       {/* Login Modal */}
-      {showLogin && <Login onClose={handleCloseLogin} />}
+      {showLogin && <Login onClose={handleCloseLogin} onLoginSuccess={handleLoginSuccess} />}
     </footer>
   );
 }

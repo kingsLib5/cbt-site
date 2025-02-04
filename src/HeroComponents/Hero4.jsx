@@ -33,7 +33,7 @@ const FAQ = () => {
   };
 
   return (
-    <div id="FAQ" className="bg-gradient-to-r from-[orangered] via-indigo-800 to-blue-800 py-12 px-6 text-white">
+    <div id="Hero4" className="bg-gradient-to-r from-[orangered] via-indigo-800 to-blue-800 py-12 px-6 text-white">
       <h2 className="text-4xl font-extrabold text-center mb-10 text-white">Frequently Asked Questions</h2>
       <div className="max-w-3xl mx-auto space-y-6">
         {questions.map((faq, index) => (

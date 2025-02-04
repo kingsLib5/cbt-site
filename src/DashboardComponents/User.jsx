@@ -18,8 +18,14 @@ function User() {
   };
 
   const handleLogout = () => {
-    console.log("User logged out"); // You can also clear session storage or cookies here
-    navigate("/"); // Redirect to the Logout component
+    // Clear the token from localStorage
+    localStorage.removeItem('token');
+    console.log("User logged out"); // Optional: Log to console for debugging
+
+    // Trigger a storage event to notify other components
+    window.dispatchEvent(new Event('storage'));
+
+    navigate("/"); // Redirect to the home page
   };
 
   return (

@@ -12,6 +12,7 @@ import Footer from './SchoolComponents/Footer';
 import Register from './SchoolComponents/Register';
 import Admin from './DashboardComponents/Admin';
 import User from './DashboardComponents/User';
+import ProtectedRoute from './ProtectedRoute'; // Import the ProtectedRoute component
 
 // Layout component to handle Header and Footer visibility
 const Layout = ({ children }) => {
@@ -36,8 +37,22 @@ createRoot(document.getElementById('root')).render(
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/About" element={<About />} />
-          <Route path="/CBT Exam" element={<Cbtquestions />} />
-          <Route path="/Past Questions" element={<Pastquestions />} />
+          <Route
+            path="/CBT Exam"
+            element={
+              <ProtectedRoute>
+                <Cbtquestions />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/Past Questions"
+            element={
+              <ProtectedRoute>
+                <Pastquestions />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/Contact" element={<Contactus />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/codecraft" element={<Admin />} />
