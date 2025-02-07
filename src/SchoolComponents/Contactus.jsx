@@ -1,7 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 function Contactus() {
+  // State variables for form fields
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [responseMsg, setResponseMsg] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setResponseMsg("");
+
+    // Prepare the form data payload
+    const formData = { fullName, email, phone, message };
+
+    try {
+      const res = await fetch("http://localhost:3000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setResponseMsg("Message sent successfully!");
+        // Clear the form fields
+        setFullName("");
+        setEmail("");
+        setPhone("");
+        setMessage("");
+      } else {
+        setResponseMsg(data.message || "Failed to send message.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setResponseMsg("An error occurred. Please try again later.");
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="min-h-[100vh] w-screen flex justify-center items-center bg-[#b4b3b3]">
       <motion.div
@@ -19,7 +61,7 @@ function Contactus() {
         </div>
 
         {/* Form */}
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSubmit}>
           {/* Full Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -27,8 +69,12 @@ function Contactus() {
             </label>
             <input
               type="text"
+              name="fullName"
               placeholder="Your full name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
+              required
             />
           </div>
 
@@ -39,8 +85,12 @@ function Contactus() {
             </label>
             <input
               type="email"
+              name="email"
               placeholder="Your email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
+              required
             />
           </div>
 
@@ -51,8 +101,12 @@ function Contactus() {
             </label>
             <input
               type="tel"
+              name="phone"
               placeholder="Your phone number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
+              required
             />
           </div>
 
@@ -62,9 +116,13 @@ function Contactus() {
               Message
             </label>
             <textarea
+              name="message"
               placeholder="Your message here"
               rows="4"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
+              required
             />
           </div>
 
@@ -75,11 +133,18 @@ function Contactus() {
               className="w-full py-3 bg-orange-500 text-white font-bold rounded-lg shadow-md hover:bg-orange-600 focus:outline-none focus:ring focus:ring-orange-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              disabled={loading}
             >
-              Send Message
+              {loading ? "Sending..." : "Send Message"}
             </motion.button>
           </div>
         </form>
+
+        {responseMsg && (
+          <div className="mt-4 text-center text-sm text-green-600">
+            {responseMsg}
+          </div>
+        )}
 
         {/* Footer */}
         <div className="text-center mt-6">

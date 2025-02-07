@@ -1,19 +1,40 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaUserGraduate } from "react-icons/fa";
+import { FaUserGraduate, FaEye, FaEyeSlash } from "react-icons/fa";
 
-function Login({ onClose }) {
+function Login({ onClose, onLoginSuccess }) {
   const [formData, setFormData] = useState({
     emailOrPhone: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
+  // Handle input changes
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Toggle the password field visibility
+  const toggleShowPassword = () => {
+    setShowPassword((prev) => !prev);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.emailOrPhone || !formData.password) {
+      setError("Please fill in both fields.");
+      return;
+    }
+
+    setError("");
+    setLoading(true);
 
     try {
       const response = await fetch("http://localhost:3000/api/auth/login", {
@@ -23,19 +44,25 @@ function Login({ onClose }) {
       });
 
       const data = await response.json();
+
       if (response.ok) {
-        console.log("Login successful:", data);
-        // Save token to localStorage or context
         localStorage.setItem("token", data.token);
-        alert("Login successful!");
-        onClose(); // Close the modal
+        window.dispatchEvent(
+          new CustomEvent("userLoggedIn", { detail: { token: data.token } })
+        );
+        if (onLoginSuccess) {
+          onLoginSuccess(data.token);
+        }
+        setLoading(false);
+        onClose();
       } else {
-        console.error("Login failed:", data.message);
-        alert(`Login failed: ${data.message}`);
+        setError(data.message || "Login failed. Please try again.");
+        setLoading(false);
       }
     } catch (err) {
       console.error("Error:", err);
-      alert("An error occurred. Please try again.");
+      setError("An error occurred. Please try again.");
+      setLoading(false);
     }
   };
 
@@ -64,7 +91,10 @@ function Login({ onClose }) {
           <p className="text-sm text-gray-500">Access your account</p>
         </div>
 
-        {/* Form */}
+        {/* Error Message */}
+        {error && <div className="mb-4 text-red-600 text-center">{error}</div>}
+
+        {/* Login Form */}
         <form className="space-y-5" onSubmit={handleSubmit}>
           {/* Email/Phone Field */}
           <div>
@@ -77,29 +107,42 @@ function Login({ onClose }) {
               value={formData.emailOrPhone}
               onChange={handleChange}
               placeholder="Enter your email or phone"
-              className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
+              autoComplete="username"
+              autoFocus
+              className="w-full px-4 py-2 border rounded-lg shadow-sm text-black focus:ring focus:ring-orange-300 focus:outline-none"
             />
           </div>
 
-          {/* Password Field */}
-          <div>
+          {/* Password Field with Centered Toggle Icon */}
+          <div className="relative">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Password
             </label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
-            />
+            <div className="relative flex items-center">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter your password"
+                autoComplete="current-password"
+                className="w-full px-4 py-2 pr-12 border rounded-lg shadow-sm text-black focus:ring focus:ring-orange-300 focus:outline-none"
+              />
+              {/* Toggle Button - Perfectly Centered */}
+              <button
+                type="button"
+                onClick={toggleShowPassword}
+                className="absolute right-3 inset-y-0 flex items-center text-gray-500"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
           </div>
 
           {/* Forgot Password Link */}
           <div className="text-right">
             <a
-              href="#"
+              href="/forgot-password"
               className="text-sm text-orange-500 hover:underline font-medium"
             >
               Forgot Password?
@@ -110,11 +153,12 @@ function Login({ onClose }) {
           <div className="text-center">
             <motion.button
               type="submit"
-              className="w-full py-3 bg-orange-500 text-white font-bold rounded-lg shadow-md hover:bg-orange-600 focus:outline-none focus:ring focus:ring-orange-300"
+              className="w-full py-3 bg-orange-500 text-white font-bold rounded-lg shadow-md hover:bg-orange-600 focus:outline-none focus:ring focus:ring-orange-300 disabled:opacity-50"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              disabled={loading}
             >
-              Login
+              {loading ? "Logging in..." : "Login"}
             </motion.button>
           </div>
         </form>

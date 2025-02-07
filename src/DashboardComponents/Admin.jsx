@@ -6,6 +6,7 @@ import WelcomeAdmin from '../DashboardmenuComponets/WelcomeAdmin';
 import AdminView from '../DashboardmenuComponets/AdminView';
 import PastquestionsUpload from '../DashboardmenuComponets/PastquestionUpload';
 import CbtquestionUpload from '../DashboardmenuComponets/CbtquestionUpload';
+import ContactMessages from '../DashboardmenuComponets/ContactMessages';
 
 function Admin() {
   const [activeSection, setActiveSection] = useState(''); // Default: no section is active
@@ -72,6 +73,15 @@ function Admin() {
           >
             Cbt-Q upload
           </button>
+          <button
+            className={`w-full text-left px-4 py-2 rounded-md font-semibold ${
+              activeSection === 'messages' ? 'bg-orange-500 text-white' : 'hover:bg-orange-100'
+            }`}
+            onClick={() => handleSectionClick('messages')}
+          >
+            Messages
+          </button>
+
         </nav>
 
         {/* Logout Button */}
@@ -95,6 +105,7 @@ function Admin() {
       {/* Main Content */}
       <main className="col-span-9 lg:col-span-10 p-6 bg-gray-200 shadow-inner">
         {/* Render Section Based on Active Tab */}
+        {activeSection === 'messages' && <ContactMessages />}
         {activeSection === 'Cbt-Q' && <CbtquestionUpload />}
         {activeSection === 'PQ' && <PastquestionsUpload />}
         {activeSection === 'AdminView' && <AdminView />}

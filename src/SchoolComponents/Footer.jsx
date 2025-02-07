@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   FaLaptop,
   FaPhoneAlt,
@@ -6,64 +6,60 @@ import {
   FaGithub,
   FaLinkedin,
   FaInfo,
-} from 'react-icons/fa';
-import { IoMdContact } from 'react-icons/io';
-import { motion } from 'framer-motion';
-import Login from './Login';
-import { useNavigate } from 'react-router-dom';
+} from "react-icons/fa";
+import { IoMdContact } from "react-icons/io";
+import { motion } from "framer-motion";
+import Login from "./Login";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
   const [showLogin, setShowLogin] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   // Check if the user is logged in on component mount
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
-      setIsLoggedIn(true); // Set login state to true if token exists
+      setIsLoggedIn(true);
     }
   }, []);
 
-  // Listen for changes in localStorage
+  // Listen for changes in localStorage (for example, when logging out)
   useEffect(() => {
     const handleStorageChange = () => {
-      const token = localStorage.getItem('token');
-      setIsLoggedIn(!!token); // Update login state based on token presence
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token);
     };
 
-    // Add event listener for storage changes
-    window.addEventListener('storage', handleStorageChange);
-
-    // Cleanup event listener
+    window.addEventListener("storage", handleStorageChange);
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
 
   const handleLoginClick = () => setShowLogin(true);
   const handleCloseLogin = () => setShowLogin(false);
 
-  // Handle login success
-  const handleLoginSuccess = () => {
-    setIsLoggedIn(true); // Set login state to true
-    setShowLogin(false); // Close the login modal
+  // Callback for successful login
+  const handleLoginSuccess = (token) => {
+    setIsLoggedIn(true);
+    setShowLogin(false);
   };
 
-  // Handle restricted links
+  // For restricted pages: if not logged in, open the login modal; otherwise navigate
   const handleRestrictedLinkClick = (path) => {
     if (!isLoggedIn) {
-      alert('Please log in to access this page.'); // Show a message or redirect to login
-      setShowLogin(true); // Open the login modal
+      alert("Please log in to access this page.");
+      setShowLogin(true);
     } else {
-      navigate(path); // Navigate to the restricted page
+      navigate(path);
     }
   };
 
   return (
     <footer className="bg-[#080836] text-white py-12 px-6 md:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24 border-t border-gray-700 pt-12">
-        
         {/* Our Services Section */}
         <motion.section
           initial={{ opacity: 0, y: 50 }}
@@ -72,34 +68,25 @@ function Footer() {
           className="flex flex-col items-center md:items-start"
           aria-labelledby="services-heading"
         >
-          <h2
-            id="services-heading"
-            className="flex items-center font-semibold text-xl gap-3 mb-4"
-          >
+          <h2 id="services-heading" className="flex items-center font-semibold text-xl gap-3 mb-4">
             <FaInfo className="text-[orangered] text-2xl" aria-hidden="true" />
             Our Services
           </h2>
           <nav aria-label="Footer Services">
             <ul className="space-y-3 text-center md:text-left">
               <li>
-                <a
-                  href="/Contact"
-                  className="hover:text-yellow-400 transition-colors duration-200"
-                >
+                <a href="/Contact" className="hover:text-yellow-400 transition-colors duration-200">
                   Contacts
                 </a>
               </li>
               <li>
-                <button
-                  onClick={handleLoginClick}
-                  className="hover:text-yellow-400 transition-colors duration-200 focus:outline-none"
-                >
+                <button onClick={handleLoginClick} className="hover:text-yellow-400 transition-colors duration-200 focus:outline-none">
                   Login
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleRestrictedLinkClick('/CBT Exam')}
+                  onClick={() => handleRestrictedLinkClick("/CBT Exam")}
                   className="hover:text-yellow-400 transition-colors duration-200 focus:outline-none"
                 >
                   CBT
@@ -107,7 +94,7 @@ function Footer() {
               </li>
               <li>
                 <button
-                  onClick={() => handleRestrictedLinkClick('/Past Questions')}
+                  onClick={() => handleRestrictedLinkClick("/Past Questions")}
                   className="hover:text-yellow-400 transition-colors duration-200 focus:outline-none"
                 >
                   Past Questions
@@ -125,10 +112,7 @@ function Footer() {
           className="flex flex-col items-center md:items-start"
           aria-labelledby="contacts-heading"
         >
-          <h2
-            id="contacts-heading"
-            className="flex items-center font-semibold text-xl gap-3 mb-4"
-          >
+          <h2 id="contacts-heading" className="flex items-center font-semibold text-xl gap-3 mb-4">
             <IoMdContact className="text-[orangered] text-2xl" aria-hidden="true" />
             Contacts
           </h2>
@@ -141,7 +125,12 @@ function Footer() {
             </li>
             <li className="flex items-center space-x-3">
               <FaWhatsapp className="text-green-500 text-lg" aria-hidden="true" />
-              <a href="https://wa.me/09076084515" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400 transition-colors duration-200">
+              <a
+                href="https://wa.me/09076084515"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-yellow-400 transition-colors duration-200"
+              >
                 09076084515
               </a>
             </li>
@@ -178,10 +167,7 @@ function Footer() {
           className="flex flex-col items-center md:items-start"
           aria-labelledby="about-heading"
         >
-          <h2
-            id="about-heading"
-            className="flex items-center font-semibold text-xl gap-3 mb-4"
-          >
+          <h2 id="about-heading" className="flex items-center font-semibold text-xl gap-3 mb-4">
             <FaLaptop className="text-[orangered] text-2xl" aria-hidden="true" />
             About Us
           </h2>
@@ -194,7 +180,7 @@ function Footer() {
         </motion.section>
       </div>
 
-      {/* Login Modal */}
+      {/* Conditionally render the Login modal */}
       {showLogin && <Login onClose={handleCloseLogin} onLoginSuccess={handleLoginSuccess} />}
     </footer>
   );

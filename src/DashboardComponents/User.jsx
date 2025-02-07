@@ -8,24 +8,31 @@ import Cbt from "../DashboardmenuComponets/Cbt";
 import Welcome from "../DashboardmenuComponets/Welcome";
 
 function User() {
-  const [activeSection, setActiveSection] = useState(""); // Default: no section is active
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Hamburger menu toggle
+  const [activeSection, setActiveSection] = useState(""); // No section active by default
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Toggle for mobile sidebar
   const navigate = useNavigate();
 
   const handleSectionChange = (section) => {
     setActiveSection(section);
-    setIsSidebarOpen(false); // Close the sidebar when a button is clicked
+    setIsSidebarOpen(false); // Close sidebar when an option is selected
   };
 
   const handleLogout = () => {
-    // Clear the token from localStorage
+    // Save the old token value for the StorageEvent
+    const oldToken = localStorage.getItem('token');
+    // Remove the token from localStorage
     localStorage.removeItem('token');
-    console.log("User logged out"); // Optional: Log to console for debugging
+    console.log("User logged out");
 
-    // Trigger a storage event to notify other components
-    window.dispatchEvent(new Event('storage'));
+    // Dispatch a custom StorageEvent so that Header updates immediately
+    window.dispatchEvent(new StorageEvent('storage', {
+      key: 'token',
+      oldValue: oldToken,
+      newValue: null,
+    }));
 
-    navigate("/"); // Redirect to the home page
+    // Redirect to the home page
+    navigate("/");
   };
 
   return (
@@ -95,7 +102,7 @@ function User() {
         </button>
       </aside>
 
-      {/* Hamburger Menu */}
+      {/* Hamburger Menu for Mobile */}
       <div className="md:hidden flex justify-between items-center bg-gray-200 p-4 shadow-lg">
         <h1 className="text-lg font-bold text-gray-800">Dashboard</h1>
         <FaBars
@@ -104,9 +111,8 @@ function User() {
         />
       </div>
 
-      {/* Main Content */}
+      {/* Main Content Area */}
       <main className="col-span-9 lg:col-span-10 p-6 bg-gray-200 shadow-inner">
-        {/* Render Section Based on Active Tab */}
         {activeSection === "details" && <Details />}
         {activeSection === "login" && <Cbt />}
         {activeSection === "profile" && <Profile />}
