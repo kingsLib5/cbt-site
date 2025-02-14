@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Login from "./Login"; // Import the Login component
+import axios from "axios";
 
 function Register() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -17,6 +18,13 @@ function Register() {
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const nigerianStates = [
+    "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno", 
+    "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "Gombe", "Imo", "Jigawa", 
+    "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", 
+    "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara"
+  ];
 
   const openLoginModal = () => setIsLoginOpen(true);
   const closeLoginModal = () => setIsLoginOpen(false);
@@ -43,38 +51,36 @@ function Register() {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/register",
+        formData,
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      console.log("Registration successful:", response.data);
+      alert("Registration successful!");
+
+      // Store the returned user data in localStorage
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("username", response.data.user.username);
+
+      // Clear form inputs
+      setFormData({
+        firstName: "",
+        lastName: "",
+        username: "",
+        email: "",
+        phoneNumber: "",
+        state: "",
+        password: "",
+        confirmPassword: "",
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        console.log("Registration successful:", data);
-        alert("Registration successful!");
-
-        // Clear form inputs
-        setFormData({
-          firstName: "",
-          lastName: "",
-          username: "",
-          email: "",
-          phoneNumber: "",
-          state: "",
-          password: "",
-          confirmPassword: "",
-        });
-
-        // Open the login modal
-        openLoginModal();
-      } else {
-        console.error("Registration failed:", data.message);
-        alert(`Registration failed: ${data.message}`);
-      }
+      // Open the login modal
+      openLoginModal();
     } catch (err) {
-      console.error("Error:", err);
-      alert("An error occurred. Please try again.");
+      console.error("Registration failed:", err.response?.data?.message || err.message);
+      alert(`Registration failed: ${err.response?.data?.message || err.message}`);
     }
   };
 
@@ -178,14 +184,19 @@ function Register() {
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 State
               </label>
-              <input
-                type="text"
+              <select
                 name="state"
                 value={formData.state}
                 onChange={handleChange}
-                placeholder="State"
                 className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-orange-300 focus:outline-none"
-              />
+              >
+                <option value="">Select State</option>
+                {nigerianStates.map((state, index) => (
+                  <option key={index} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
