@@ -71,7 +71,7 @@ function Details() {
   const handleCropSave = async () => {
     try {
       const croppedImage = await getCroppedImg(selectedImage, croppedAreaPixels);
-      setProfileImage(croppedImage);
+      console.log("Cropped Image:", croppedImage);
       const token = localStorage.getItem("token");
       // Send updated profile image to the backend
       const res = await axios.put(
@@ -79,10 +79,18 @@ function Details() {
         { profileImage: croppedImage },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      console.log("Backend update response:", res.data);
       setShowCropper(false);
-      // If the backend returns the updated user, update localStorage and dispatch an event.
+      // Clear crop states for subsequent updates
+      setSelectedImage(null);
+      setCrop({ x: 0, y: 0 });
+      setZoom(1);
       if (res.data.user) {
+        // Update localStorage with the new user data
         localStorage.setItem("user", JSON.stringify(res.data.user));
+        // Update the local state for profile image
+        setProfileImage(res.data.user.profileImage);
+        // Dispatch a custom event so Welcome can update its picture
         window.dispatchEvent(
           new CustomEvent("profileUpdated", {
             detail: { profileImage: res.data.user.profileImage },
@@ -94,6 +102,7 @@ function Details() {
       setShowCropper(false);
     }
   };
+  
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-6">
@@ -113,7 +122,7 @@ function Details() {
             className="px-6 py-2 bg-orange-500 text-white rounded-full font-bold shadow hover:bg-orange-600 transition-all cursor-pointer"
             aria-label="Edit profile image"
           >
-            Edit Profile
+            Edit Picture
           </label>
           <input
             id="upload-image"
@@ -160,7 +169,7 @@ function Details() {
         {/* User Details */}
         <div className="mt-8">
           <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
-            User Details
+             Details
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
             <div>

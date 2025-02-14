@@ -10,7 +10,7 @@ import {
 import { IoMdContact } from "react-icons/io";
 import { motion } from "framer-motion";
 import Login from "./Login";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Footer() {
   const [showLogin, setShowLogin] = useState(false);
@@ -38,6 +38,17 @@ function Footer() {
     };
   }, []);
 
+  // Listen for custom "userLoggedIn" event to update login state immediately
+  useEffect(() => {
+    const handleUserLoggedIn = () => {
+      setIsLoggedIn(true);
+    };
+    window.addEventListener("userLoggedIn", handleUserLoggedIn);
+    return () => {
+      window.removeEventListener("userLoggedIn", handleUserLoggedIn);
+    };
+  }, []);
+
   const handleLoginClick = () => setShowLogin(true);
   const handleCloseLogin = () => setShowLogin(false);
 
@@ -47,13 +58,14 @@ function Footer() {
     setShowLogin(false);
   };
 
-  // For restricted pages: if not logged in, open the login modal; otherwise navigate
+  // For restricted pages: if not logged in, open the login modal; otherwise navigate and scroll to top
   const handleRestrictedLinkClick = (path) => {
     if (!isLoggedIn) {
       alert("Please log in to access this page.");
       setShowLogin(true);
     } else {
       navigate(path);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -68,22 +80,33 @@ function Footer() {
           className="flex flex-col items-center md:items-start"
           aria-labelledby="services-heading"
         >
-          <h2 id="services-heading" className="flex items-center font-semibold text-xl gap-3 mb-4">
+          <h2
+            id="services-heading"
+            className="flex items-center font-semibold text-xl gap-3 mb-4"
+          >
             <FaInfo className="text-[orangered] text-2xl" aria-hidden="true" />
             Our Services
           </h2>
           <nav aria-label="Footer Services">
             <ul className="space-y-3 text-center md:text-left">
               <li>
-                <a href="/Contact" className="hover:text-yellow-400 transition-colors duration-200">
+                <a
+                  href="/Contact"
+                  className="hover:text-yellow-400 transition-colors duration-200"
+                >
                   Contacts
                 </a>
               </li>
-              <li>
-                <button onClick={handleLoginClick} className="hover:text-yellow-400 transition-colors duration-200 focus:outline-none">
-                  Login
-                </button>
-              </li>
+              {!isLoggedIn && (
+                <li>
+                  <button
+                    onClick={handleLoginClick}
+                    className="hover:text-yellow-400 transition-colors duration-200 focus:outline-none"
+                  >
+                    Login
+                  </button>
+                </li>
+              )}
               <li>
                 <button
                   onClick={() => handleRestrictedLinkClick("/CBT Exam")}
@@ -112,14 +135,23 @@ function Footer() {
           className="flex flex-col items-center md:items-start"
           aria-labelledby="contacts-heading"
         >
-          <h2 id="contacts-heading" className="flex items-center font-semibold text-xl gap-3 mb-4">
-            <IoMdContact className="text-[orangered] text-2xl" aria-hidden="true" />
+          <h2
+            id="contacts-heading"
+            className="flex items-center font-semibold text-xl gap-3 mb-4"
+          >
+            <IoMdContact
+              className="text-[orangered] text-2xl"
+              aria-hidden="true"
+            />
             Contacts
           </h2>
           <ul className="space-y-4">
             <li className="flex items-center space-x-3">
               <FaPhoneAlt className="text-white text-lg" aria-hidden="true" />
-              <a href="tel:09018115555" className="hover:text-yellow-400 transition-colors duration-200">
+              <a
+                href="tel:09018115555"
+                className="hover:text-yellow-400 transition-colors duration-200"
+              >
                 09018115555
               </a>
             </li>
@@ -167,12 +199,19 @@ function Footer() {
           className="flex flex-col items-center md:items-start"
           aria-labelledby="about-heading"
         >
-          <h2 id="about-heading" className="flex items-center font-semibold text-xl gap-3 mb-4">
-            <FaLaptop className="text-[orangered] text-2xl" aria-hidden="true" />
+          <h2
+            id="about-heading"
+            className="flex items-center font-semibold text-xl gap-3 mb-4"
+          >
+            <FaLaptop
+              className="text-[orangered] text-2xl"
+              aria-hidden="true"
+            />
             About Us
           </h2>
           <p className="text-center md:text-left leading-relaxed mb-6">
-            e-Lesson is an educational platform that helps students prepare for their exams and boosts their confidence with challenging questions.
+            e-Lesson is an educational platform that helps students prepare for
+            their exams and boosts their confidence with challenging questions.
           </p>
           <p className="text-center md:text-left text-sm text-gray-400">
             © 2024 All rights reserved | Developed by Kings &amp; Prisca
@@ -181,7 +220,12 @@ function Footer() {
       </div>
 
       {/* Conditionally render the Login modal */}
-      {showLogin && <Login onClose={handleCloseLogin} onLoginSuccess={handleLoginSuccess} />}
+      {showLogin && (
+        <Login
+          onClose={handleCloseLogin}
+          onLoginSuccess={handleLoginSuccess}
+        />
+      )}
     </footer>
   );
 }

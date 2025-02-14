@@ -17,10 +17,8 @@ import ProtectedRoute from './ProtectedRoute'; // Import the ProtectedRoute comp
 // Layout component to handle Header and Footer visibility
 const Layout = ({ children }) => {
   const location = useLocation();
-
   // Routes where Header and Footer should be hidden
   const hideHeaderFooter = location.pathname === '/codecraft';
-
   return (
     <>
       {!hideHeaderFooter && <Header />}
@@ -56,7 +54,15 @@ createRoot(document.getElementById('root')).render(
           <Route path="/Contact" element={<Contactus />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/codecraft" element={<Admin />} />
-          <Route path="/user" element={<User />} />
+          {/* Protect the User route as well */}
+          <Route
+            path="/user"
+            element={
+              <ProtectedRoute>
+                <User />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Layout>
     </BrowserRouter>
