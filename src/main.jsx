@@ -12,6 +12,7 @@ import Footer from './SchoolComponents/Footer';
 import Register from './SchoolComponents/Register';
 import Admin from './DashboardComponents/Admin';
 import User from './DashboardComponents/User';
+import ForgotPassword from './SchoolComponents/ForgotPassword'
 import ProtectedRoute from './ProtectedRoute'; // Import the ProtectedRoute component
 
 // Layout component to handle Header and Footer visibility
@@ -51,6 +52,7 @@ createRoot(document.getElementById('root')).render(
               </ProtectedRoute>
             }
           />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/Contact" element={<Contactus />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/codecraft" element={<Admin />} />
