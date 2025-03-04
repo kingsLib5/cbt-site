@@ -148,7 +148,7 @@ function Contactus() {
 
         {/* Footer */}
         <div className="text-center mt-6">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 ">
             Prefer email? Contact us directly at{" "}
             <a
               href="mailto:example@example.com"
