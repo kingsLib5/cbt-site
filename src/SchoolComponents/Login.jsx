@@ -47,11 +47,12 @@ function Login({ onClose, onLoginSuccess }) {
       );
 
       const data = response.data;
+      console.log(data);
 
       if (response.status === 200) {
-        // Save token and username (using data.user.username)
+        // Save token and role
         localStorage.setItem("token", data.token);
-        localStorage.setItem("username", data.user.username);
+        localStorage.setItem("role", data.user.role);
 
         // Dispatch an event if needed
         window.dispatchEvent(
@@ -63,17 +64,23 @@ function Login({ onClose, onLoginSuccess }) {
           onLoginSuccess(data.token);
         }
         setLoading(false);
-        // Close the modal if applicable
         onClose && onClose();
-        // Navigate to the Welcome page and pass the username in the route state
-        navigate("/user", { state: { username: data.user.username } });
+
+        // Route based on user role
+        if (data.user.role === "Admin") {
+          localStorage.setItem("adminName", data.user.username);
+          navigate("/codecraft", { state: { adminName: data.user.username } });
+        } else {
+          localStorage.setItem("username", data.user.username);
+          navigate("/user", { state: { username: data.user.username } });
+        }
       } else {
         setError(data.message || "Login failed. Please try again.");
         setLoading(false);
       }
     } catch (err) {
       console.error("Error:", err);
-      setError("Invaild Password");
+      setError("Invalid Password");
       setLoading(false);
     }
   };
@@ -98,7 +105,7 @@ function Login({ onClose, onLoginSuccess }) {
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold text-gray-800 flex items-center justify-center">
             <FaUserGraduate size={24} className="text-orange-500 mr-2" />
-            Student's Login
+            Login
           </h1>
           <p className="text-sm text-gray-500">Access your account</p>
         </div>

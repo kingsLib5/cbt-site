@@ -14,6 +14,7 @@ import Admin from './DashboardComponents/Admin';
 import User from './DashboardComponents/User';
 import ForgotPassword from './SchoolComponents/ForgotPassword';
 import ProtectedRoute from './ProtectedRoute'; // Import the ProtectedRoute component
+import AdminProtectedRoute from './AdminProtectedRoute';
 
 // Import our FancyAlert component and its trigger
 import FancyAlert, { triggerFancyAlert } from './SchoolComponents/FancyAlert';
@@ -61,7 +62,16 @@ createRoot(document.getElementById('root')).render(
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/Contact" element={<Contactus />} />
           <Route path="/Register" element={<Register />} />
-          <Route path="/codecraft" element={<Admin />} />
+          
+          <Route
+            path="/codecraft"
+            element={
+              <AdminProtectedRoute>
+                <Admin />
+              </AdminProtectedRoute>
+            }
+          />
+
           {/* Protect the User route as well */}
           <Route
             path="/user"
