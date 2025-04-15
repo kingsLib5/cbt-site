@@ -14,8 +14,15 @@ function Admin() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    console.log('User logged out'); // You can also clear session storage or cookies here
-    navigate('/'); // Redirect to the Logout component
+    console.log('User logged out');
+    // Clear authentication information from localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("adminName");
+    localStorage.removeItem("username");
+  
+    // Redirect to the login or home page
+    navigate('/');
   };
 
   const handleSectionClick = (section) => {

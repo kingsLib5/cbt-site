@@ -1,15 +1,41 @@
+// WelcomeAdmin.jsx
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const WelcomeAdmin = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [userCount, setUserCount] = useState(null);
 
+  // Timer for updating the clock
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
-
-    // Cleanup the timer
     return () => clearInterval(timer);
+  }, []);
+
+  // Fetch user count on component mount
+  useEffect(() => {
+    const fetchUserCount = async () => {
+      try {
+        // Retrieve token from localStorage (make sure it is stored after login)
+        const token = localStorage.getItem("token");
+
+        // Make the GET request to the usercount endpoint with the Authorization header
+        const response = await axios.get("http://localhost:3000/api/admin/usercount", {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+        setUserCount(response.data.count);
+      } catch (error) {
+        // Log the detailed error for debugging
+        console.error("Error fetching user count:", error.response || error);
+      }
+    };
+
+    fetchUserCount();
   }, []);
 
   const formatTime = (time) =>
@@ -38,7 +64,9 @@ const WelcomeAdmin = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Total Registered Users */}
         <div className="p-6 bg-white rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300">
-          <h2 className="text-4xl font-bold text-orange-500 mb-2">120</h2>
+          <h2 className="text-4xl font-bold text-orange-500 mb-2">
+            {userCount !== null ? userCount : "Loading..."}
+          </h2>
           <p className="text-gray-600">Total Registered Users</p>
         </div>
 
